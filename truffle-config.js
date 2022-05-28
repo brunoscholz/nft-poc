@@ -4,14 +4,9 @@ const privateKeys = process.env.PRIVATE_KEYS || "";
 
 module.exports = {
   networks: {
-    ganache_gui: {
+    ganache: {
       host: "127.0.0.1",
       port: 7545,
-      network_id: "*",
-    },
-    ganache_cli: {
-      host: "127.0.0.1",
-      port: 8545,
       network_id: "*",
     },
     kovan: {

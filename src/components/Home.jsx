@@ -93,10 +93,10 @@ const Home = () => {
 
   const elements = ['one', 'two', 'three'];
   return (
-    <div className='home'>
+    <>
       <Navbar />
       { nftLoadedSelector(state) ? <Content /> : <Spinner /> }
-    </div>
+    </>
   )
 }
 

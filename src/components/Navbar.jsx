@@ -1,39 +1,29 @@
-import { useAppState } from '../contexts/AppState'
+// import { useAppState } from '../contexts/AppState'
 
 const Navbar = () => {
-  const [ state ] = useAppState()
+  // const [ state ] = useAppState()
 
   return (
-    <nav className='navbar navbar-expand-lg navbar-dark bg-primary'>
-      <a className='navbar-brand' href='/#'>
-        NFT Marketplace
-      </a>
-      <button
-        className='navbar-toggler'
-        type='button'
-        data-toggle='collapse'
-        data-target='#navbarNavDropdown'
-        aria-controls='navbarNavDropdown'
-        aria-expanded='false'
-        aria-label='Toggle navigation'
-      >
-        <span className='navbar-toggler-icon'></span>
-      </button>
-      <ul className='navbar-nav ml-auto'>
-        <li className='nav-item'>
-          <a
+    <section id="sidebar">
+      <div className="inner">
+        <nav>
+          <ul>
+            <li><a href="#intro">Welcome</a></li>
+            <li><a href="#one">Who we are</a></li>
+            <li><a href="#two">What we do</a></li>
+            <li><a href="#three">Get in touch</a></li>
+            {/* <a
             className='nav-link small'
             href={`https://etherscan.io/address/${state.account}`}
             target="_blank"
             rel="noreferrer"
           >
             {state.account}
-          </a>
-        </li>
-      </ul>
-      <div className='collapse navbar-collapse' id='navbarNavDropdown'>
+          </a> */}
+          </ul>
+        </nav>
       </div>
-    </nav>
+    </section>
   )
 }
 

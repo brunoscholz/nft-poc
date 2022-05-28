@@ -6,7 +6,11 @@ const client = create({
   port: 5001,
   protocol: "https",
   path: "api/v0",
+  // auth: projectId + ':' + projectSecret
 });
+
+// const projectId = '29lBmbmUOPilG6GW7yJTqi2zyFo'
+// const projectSecret = 'fd66aff1be8ee0ebec58f14158b47255'
 
 // THIS FUNCTION MUST BE CALLED WITH YOUR IMAGE 'FILE' BEING PASSED IN AS AN ARGUMENT
 // I SUGGEST PASSING IN A BLOB OF THE FILE OR A DATA URI OBJECT OF AN IMAGE

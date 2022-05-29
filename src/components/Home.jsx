@@ -24,6 +24,8 @@ const loadBlockchainData = async (dispatch) => {
   console.log(totalSupply, 'nft\'s minted')
 }
 
+// const NFT_STORAGE_KEY = process.env.NFT_STORAGE_KEY
+
 const Home = () => {
   const [ state, dispatch ] = useAppState()
 
@@ -45,6 +47,8 @@ const Home = () => {
   //     console.log('Error uploading file: ', error)
   //   }
   // }
+
+  // console.log(process.env.REACT_APP_NFT_STORAGE_KEY)
 
   console.log(state)
   return (

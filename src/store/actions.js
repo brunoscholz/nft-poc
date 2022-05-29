@@ -1,6 +1,9 @@
 import Web3 from 'web3/dist/web3.min.js'
 import NFT from '../truffle/abis/NFT.json'
 
+import { NFTStorage, File } from 'nft.storage';
+import  mime from 'mime';
+
 const { create } = require("ipfs-http-client");
 
 const client = create({

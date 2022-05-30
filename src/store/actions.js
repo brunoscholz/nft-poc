@@ -1,18 +1,19 @@
 import Web3 from 'web3/dist/web3.min.js'
 import NFT from '../truffle/abis/NFT.json'
 
-import { NFTStorage, File } from 'nft.storage';
-import  mime from 'mime';
+import { NFTStorage } from 'nft.storage'
 
-const { create } = require("ipfs-http-client");
+// const { create } = require("ipfs-http-client");
 
-const client = create({
-  host: "ipfs.infura.io",
-  port: 5001,
-  protocol: "https",
-  path: "api/v0",
-  // auth: projectId + ':' + projectSecret
-});
+// const client = create({
+//   host: "ipfs.infura.io",
+//   port: 5001,
+//   protocol: "https",
+//   path: "api/v0",
+//   // auth: projectId + ':' + projectSecret
+// });
+
+import axios from 'axios'
 
 export const loadWeb3 = dispatch => {
   const web3 = new Web3(Web3.givenProvider || 'ws://localhost:7545')
@@ -39,6 +40,7 @@ export const loadWeb3 = dispatch => {
 export const loadAccount = async (web3, dispatch) => {
   const accounts = await web3.eth.getAccounts()
   dispatch({ type: 'WEB3_ACCOUNT_LOADED', payload: accounts[0] })
+  console.log(accounts)
   return accounts[0]
 }
 
@@ -56,61 +58,63 @@ export const loadContract = async (web3, networkId, dispatch) => {
 export const uploadFileToIPFS = async (file, metadata) => {
   try {
     // add File to IPFS
-    const url = await client.add(file);
-    const uploadedImageUrl = `https://ipfs.infura.io/ipfs/${url?.path}`;
+    // const url = await client.add(file);
+    // const uploadedImageUrl = `https://ipfs.infura.io/ipfs/${url?.path}`;
+    const nftstorage = new NFTStorage({token: process.env.REACT_APP_NFT_STORAGE_KEY})
 
     // add Metadata to IPFS
-    // const metadata = {
-    //   name: "example name",
-    //   description: "example description",
-    //   image: uploadedImageUrl,
-    //   attributes: [{ type: '', value:'' }]
-    //   lab: '0x000'
-    // };
-    metadata.image = uploadedImageUrl
-    const metadataRes = await client.add(JSON.stringify(metadata));
-    const metaDataUrl = `https://ipfs.infura.io/ipfs/${metadataRes?.path}`;
+    // const result = await nftstorage.store({
+    //   image: file,
+    //   name: 'my first ipfs file',
+    //   description: 'no idea',
+    //   attributes: [
+    //     { trait_type: 'cat', value: 'nature eva' }
+    //   ]
+    // })
+    metadata.image = file
+    const Token = await nftstorage.store(metadata)
+    console.log(Token.ipnft)
 
-    // pin to infura
-    await client.pin.add(metadataRes?.path);
-
-    // return image & metadata URLs and also the CID for each
-    return {
-      uploadedImageUrl,
-      metaDataUrl,
-      metaDataHashCID: metadataRes?.path,
-      imageHashCID: url?.path,
-    };
+    return Token
   } catch (e) {
     console.log("error uplaoding to IPFS", e);
     return null
   }
 }
 
-export const mint = async (contract, account, dispatch, uri, price='100000000000000000') => {
-  const nft = await contract.methods.mint(uri, price).send({ from: account })
-  console.log(nft)
+export const mint = async (contract, account, Token, dispatch, uri, price='100000000000000000') => {
+  const nft = await contract.methods.mint(Token.ipnft, price).send({ from: account })
+  return nft
 }
 
 
-// const loadTokens = async () => {
-//   const web3Modal = new Web3Modal({
-//     network: 'ganache', // optional
-//     cacheProvider: true, // optional
-//     providerOptions: {} // required
-//   })
-//   const provider = await web3Modal.connect()
-//   const web3 = new Web3(provider)
-//   const netId = await web3.eth.net.getId()
-//   //THIS WILL LOAD YOUR CONTRACT FROM BLOCKCHAIN
-//   contract = new web3.eth.Contract(Contract.abi, Contract.networks[netId].address)
-//   const totalSupply = await contract.methods.totalSupply().call()
-//   console.log(`totalSupply ${totalSupply}`)
+export const loadAssets = async (contract, dispatch) => {
+  const orderStream = await contract.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest' })
+  const allOrders = orderStream.map(event => event.returnValues)
 
-//   for (let i = 5; i <= totalSupply; i++) {
-//     const uri = await contract.methods.tokenURI(i).call()
-//     const owner = await contract.methods.ownerOf(i).call()
-//     console.log(owner)
-//     updateImages(oldArray => [...oldArray, uri])
-//   }
-// }
+  console.log(allOrders)
+  return allOrders
+}
+
+export const loadAllTokens = async (contract, resolveLink, dispatch) => {
+  const totalSupply = await contract.methods.totalSupply().call()
+  const tokens = []
+
+  for (let i = 9; i <= totalSupply; i++) {
+    const uri = await contract.methods.tokenURI(i).call()
+    let response = await axios.get(`https://nftstorage.link/ipfs/${uri}/metadata.json`)
+    let data = {
+      ...response.data,
+      image: resolveLink(response.data.image)
+    }
+    tokens.push(data)
+  }
+
+  console.log(tokens)
+  dispatch({ type: 'ALL_NFTS_LOADED', payload: tokens })
+  return tokens
+}
+
+export const subscribeToEvents = async () => {
+
+}

@@ -10,7 +10,13 @@ const account = state => get(state, 'account')
 export const accountSelector = createSelector(account, a => a)
 
 const nftLoaded = state => get(state, 'nft.loaded')
-export const nftLoadedSelector = createSelector(nftLoaded, loaded => loaded)
+export const contractLoadedSelector = createSelector(nftLoaded, loaded => loaded)
 
 const nftContract = state => get(state, 'nft.contract')
-export const nftSelector = createSelector(nftContract, t => t)
+export const contractSelector = createSelector(nftContract, t => t)
+
+const tokensLoaded = state => get(state, 'marketplace.loaded')
+export const tokensLoadedSelector = createSelector(tokensLoaded, loaded => loaded)
+
+const tokens = state => get(state, 'marketplace.data')
+export const tokensSelector = createSelector(tokens, t => t)

@@ -6,13 +6,13 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { AppStateProvider } from './contexts/AppState'
-import { initialState, combineReducers } from './store/reducers'
+import { initialState, combineReducers, marketReducer } from './store/reducers'
 import { web3Reducer, nftReducer } from './store/reducers'
 
 const appReducers = combineReducers({
   web3: web3Reducer,
   nft: nftReducer,
-  // exchange: exchangeReducer
+  marketplace: marketReducer
 })
 
 ReactDOM.render(

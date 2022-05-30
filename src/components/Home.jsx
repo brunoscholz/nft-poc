@@ -6,7 +6,8 @@ import { loadWeb3, loadAccount, loadContract } from '../store/actions'
 import Navbar from './Navbar'
 import Content from './Content'
 import Spinner from './Spinner'
-import { nftLoadedSelector } from '../store/selectors'
+import Footer from './Footer'
+import { contractLoadedSelector } from '../store/selectors'
 
 const loadBlockchainData = async (dispatch) => {
   const web3 = loadWeb3(dispatch)
@@ -19,43 +20,24 @@ const loadBlockchainData = async (dispatch) => {
     return
   }
 
-  // GET THE AMOUNT OF NFTs MINTED
-  const totalSupply = await nft.methods.totalSupply().call()
-  console.log(totalSupply, 'nft\'s minted')
+  // // GET THE AMOUNT OF NFTs MINTED
+  // const totalSupply = await nft.methods.totalSupply().call()
+  // console.log(totalSupply, 'nft\'s minted')
 }
-
-// const NFT_STORAGE_KEY = process.env.NFT_STORAGE_KEY
 
 const Home = () => {
   const [ state, dispatch ] = useAppState()
-
-  let fileUrl
-  const updateFileUrl = () => {}
 
   useEffect(() => {
     loadBlockchainData(dispatch)
   }, [])
 
-  // async function onChange(e) {
-  //   const file = e.target.files[0]
-  //   try {
-  //     const added = await client.add(file)
-  //     const url = `https://ipfs.infura.io/ipfs/${added.path}`
-  //     updateFileUrl(url)
-  //     mint(added.path)
-  //   } catch (error) {
-  //     console.log('Error uploading file: ', error)
-  //   }
-  // }
-
-  // console.log(process.env.REACT_APP_NFT_STORAGE_KEY)
-
-  console.log(state)
   return (
-    <>
+    <div id="wrapper">
       <Navbar />
-      { nftLoadedSelector(state) ? <Content /> : <Spinner /> }
-    </>
+      { contractLoadedSelector(state) ? <Content /> : <Spinner /> }
+      <Footer />
+    </div>
   )
 }
 

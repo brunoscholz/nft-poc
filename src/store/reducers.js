@@ -52,6 +52,21 @@ export const nftReducer = (state, action) => {
   }
 }
 
+export const marketReducer = (state, action) => {
+  switch (action.type) {
+    case 'ALL_NFTS_LOADED':
+      return {
+        ...state,
+        marketplace: {
+          ...state.marketplace,
+          loaded: true,
+          data: action.payload
+        }
+      }
+    default:
+      return state
+  }
+}
 
 export const combineReducers = reducers => {
   return (state, action) => {

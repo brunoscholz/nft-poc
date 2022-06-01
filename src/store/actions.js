@@ -92,7 +92,7 @@ export const loadAllTokens = async (contract, resolveLink, dispatch) => {
   const totalSupply = await contract.methods.totalSupply().call()
   const tokens = []
 
-  for (let i = 9; i <= totalSupply; i++) {
+  for (let i = 1; i <= totalSupply; i++) {
     const uri = await contract.methods.tokenURI(i).call()
     let response = await axios.get(`https://nftstorage.link/ipfs/${uri}/metadata.json`)
     let data = {

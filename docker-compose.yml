@@ -3,7 +3,7 @@ version: '3'
 services:
   # ganachecli: simulated test rpc on dev environment
   ganache-cli:
-    container_name: ganache-cli
+    container_name: nft-ganache-cli
     build:
       context: ./ganache
     ports:
@@ -12,7 +12,7 @@ services:
   # truffle-suite
   # volumes are used here to enable hot editing :) Nice trick!
   truffle-app:
-    container_name: truffle-app
+    container_name: nft-truffle-app
     build:
       context: ./
     healthcheck:

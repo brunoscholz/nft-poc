@@ -3,7 +3,7 @@ set -e
 
 echo "Running docker-entrypoint.sh in DEVELOPMENT mode"
 
-ls | echo
+# echo "Truffle init"
 # truffle init
 
 echo "Compiling contracts"

@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.14;
+pragma solidity >=0.6.0 <0.8.0;
 
 // import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract NFT is ERC721A, Ownable {
+contract NFT is ERC721, Ownable {
 
   // Variables
   uint256 public minRate = 0.0000065 ether;
   address payable public _owner;
 
-  string public baseURI = "ipfs://";
+  // string public baseURI = "ipfs://";
 
   // Mappings
   mapping(uint256 => bool) public sold;
@@ -30,7 +30,7 @@ contract NFT is ERC721A, Ownable {
   //   _safeMint(msg.sender, quantity);
   // }
 
-  function mint(string memory _tokenURI, uint256 _price) public returns (bool) {
+  function mint(string memory _tokenURI, uint256 _price) public payable returns (bool) {
     require(msg.value >= minRate, "Not enough Ether sent to mint");
     uint256 _tokenId = totalSupply() + 1;
     price[_tokenId] = _price;
@@ -64,9 +64,9 @@ contract NFT is ERC721A, Ownable {
     payable(_owner).transfer(address(this).balance);
   }
 
-  function _baseURI() internal view override returns (string memory) {
-    return baseURI;
-  }
+  // function _baseURI() internal view override returns (string memory) {
+  //   return baseURI;
+  // }
 
   function setMinRate(uint256 _minRate) public onlyOwner {
     minRate = _minRate;

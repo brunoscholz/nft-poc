@@ -11,20 +11,17 @@ services:
 
   # truffle-suite
   # volumes are used here to enable hot editing :) Nice trick!
-  app:
-    container_name: app
+  truffle-app:
+    container_name: truffle-app
     build:
       context: ./
     healthcheck:
-      test: curl -sf -X POST --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' localhost:8545
+      test: curl -sf -X POST --data '{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' localhost:8546
       interval: 5s
       timeout: 5s
       retries: 5
-    command: >
-      sh -c "truffle compile &&
-             truffle test &&
-             truffle migrate &&
-             yarn start"
+    env_file:
+      - .env
     ports:
       - 4001:4001
     tty: true

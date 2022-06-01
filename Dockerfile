@@ -1,10 +1,9 @@
-FROM node:16
+FROM node:16.13
 
 WORKDIR /app
 
-# RUN npm install -g yarn
 # Install Truffle
-# RUN npm install -g truffle
+RUN npm install -g truffle@5.4.3 --force
 # RUN npm config set bin-links false
 
 
@@ -14,14 +13,20 @@ WORKDIR /app
 # COPY test ./test
 
 # Move React Files
-COPY src ./
-COPY public ./
-COPY patches ./
-COPY test ./
-COPY package.json ./
-COPY yarn.lock ./
-COPY truffle-config.js ./
+COPY patches ./patches
+COPY public ./public
+COPY src ./src
+COPY test ./test
+COPY package.json ./package.json
+COPY yarn.lock ./yarn.lock
+COPY truffle-config.js ./truffle-config.js
+
+# Copy entrypoint file
+COPY ./docker-entrypoint.sh /tmp/entrypoint.sh
+RUN chmod 0777 /tmp/entrypoint.sh
 
 # Clean Install NPM Dependencies
 RUN yarn install
 EXPOSE 4001
+# VOLUME /app
+ENTRYPOINT ["/tmp/entrypoint.sh"]

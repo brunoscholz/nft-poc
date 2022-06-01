@@ -1,44 +1,15 @@
 /* eslint-disable */
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useAppState } from '../contexts/AppState'
-import { loadWeb3, loadAccount, loadContract } from '../store/actions'
 
-import Navbar from './Navbar'
 import Content from './Content'
 import Spinner from './Spinner'
-import Footer from './Footer'
 import { contractLoadedSelector } from '../store/selectors'
 
-const loadBlockchainData = async (dispatch) => {
-  const web3 = loadWeb3(dispatch)
-  const networkId = await web3.eth.net.getId()
-  await loadAccount(web3, dispatch)
-
-  const nft = await loadContract(web3, networkId, dispatch)
-  if (!nft) {
-    window.alert('NFT smart contract not detected in the current network.')
-    return
-  }
-
-  // // GET THE AMOUNT OF NFTs MINTED
-  // const totalSupply = await nft.methods.totalSupply().call()
-  // console.log(totalSupply, 'nft\'s minted')
-}
-
 const Home = () => {
-  const [ state, dispatch ] = useAppState()
+  const [ state ] = useAppState()
 
-  useEffect(() => {
-    loadBlockchainData(dispatch)
-  }, [])
-
-  return (
-    <div id="wrapper">
-      <Navbar />
-      { contractLoadedSelector(state) ? <Content /> : <Spinner /> }
-      <Footer />
-    </div>
-  )
+  return contractLoadedSelector(state) ? <Content /> : <Spinner />
 }
 
 export default Home

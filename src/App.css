@@ -2190,7 +2190,7 @@ form>.fields {
   margin: -1.5em 0 2em -1.5em;
 }
 
-form>.fields>.field {
+form>.fields .field {
   -moz-flex-grow: 0;
   -webkit-flex-grow: 0;
   -ms-flex-grow: 0;
@@ -2203,15 +2203,15 @@ form>.fields>.field {
   width: calc(100% - 1.5em);
 }
 
-form>.fields>.field.half {
+form>.fields .field.half {
   width: calc(50% - 0.75em);
 }
 
-form>.fields>.field.third {
+form>.fields .field.third {
   width: calc(100%/3 - 0.5em);
 }
 
-form>.fields>.field.quarter {
+form>.fields .field.quarter {
   width: calc(25% - 0.375em);
 }
 
@@ -2222,20 +2222,20 @@ form>.fields>.field.quarter {
     margin: -1.5em 0 2em -1.5em;
   }
 
-  form>.fields>.field {
+  form>.fields .field {
     padding: 1.5em 0 0 1.5em;
     width: calc(100% - 1.5em);
   }
 
-  form>.fields>.field.half {
+  form>.fields .field.half {
     width: calc(100% - 1.5em);
   }
 
-  form>.fields>.field.third {
+  form>.fields .field.third {
     width: calc(100% - 1.5em);
   }
 
-  form>.fields>.field.quarter {
+  form>.fields .field.quarter {
     width: calc(100% - 1.5em);
   }
 
@@ -2714,6 +2714,7 @@ button:disabled,
   width: 100%;
   border-radius: 4px;
   overflow: hidden;
+  max-height: 20rem;
 }
 
 .tiles article>.image img {
@@ -2845,6 +2846,222 @@ button:disabled,
 
 .tiles article.style6>.image:before {
   background-color: #8499e7;
+}
+
+/* Token Item */
+.item-container {
+
+}
+
+.item-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.item-wrapper .item-summary {
+  flex: 3 0 0%;
+  max-width: 43%;
+  width: 0px;
+}
+
+.item-wrapper .item-main {
+  flex: 4 0 0%;
+  margin-left: -20px;
+}
+
+.item-wrapper .item-summary .item-media-frame {
+  margin: 20px;
+}
+
+.item-wrapper .item-summary .item-media-frame .media--frame {
+  cursor: pointer;
+  max-height: 1000px;
+  width: 100%;
+  min-height: 200px;
+  height: 100%;
+}
+
+.item-wrapper .item-summary .item-media-frame .media--frame .img-card {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.item-wrapper .item-summary .item-media-frame .media--frame .img-card .img-container {
+  -webkit-box-align: center;
+  align-items: center;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  max-height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px;
+}
+
+.item-wrapper .item-summary .item-summary-frame {
+  margin: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  border: 1px solid rgb(229, 232, 235);
+  overflow: hidden;
+}
+
+.item-wrapper .item-summary .item-summary-frame .item--properties {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+
+.item-wrapper .item-summary .item-summary-frame .item--properties .item--property {
+  margin: 5px;
+  width: 150px;
+  background-color: rgba(21, 178, 229, 0.06);
+  border-radius: 6px;
+  border: 1px solid rgb(21, 178, 229);
+  padding: 10px;
+  text-align: center;
+}
+
+.item-wrapper .item-summary .item-summary-frame .item--properties .item--property .property--type {
+  color: rgb(21, 178, 229);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.item-wrapper .item-summary .item-summary-frame .item--properties .item--property .property--value {
+  color: rgb(53, 56, 64);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panel {
+  border-radius: 10px;
+  border-right: 1px solid rgb(229, 232, 235);
+  border-bottom: 1px solid rgb(229, 232, 235);
+  border-left: 1px solid rgb(229, 232, 235);
+  border-image: initial;
+  border-top: none;
+  color: rgb(4, 17, 29);
+  background-color: rgb(255, 255, 255);
+  overflow: hidden;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: -1px;
+  margin-top: 1px;
+  border-radius: 0;
+}
+
+.panel .panel-header {
+  width: 100%;
+  -webkit-box-align: center;
+  align-items: center;
+  border-radius: 10px;
+  border-top: 1px solid rgb(229, 232, 235);
+  cursor: pointer;
+  display: flex;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 20px;
+  user-select: none;
+  background-color: rgb(255, 255, 255);
+}
+
+.panel .panel-header i {
+  margin-right: 10px;
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+
+}
+
+.panel .panel-header span {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.panel .panel-body {
+  border-top: 1px solid rgb(229, 232, 235);
+  color: rgb(53, 56, 64);
+  background-color: rgb(251, 253, 255);
+}
+
+.panel .panel-body .panel-body--content {
+  height: initial;
+  max-height: 200px;
+  overflow: auto;
+  transition: height 100ms ease 0s;
+}
+
+.panel .panel-body .panel-body--content .panel-body--list {
+  display: flex;
+  flex-direction: column;
+}
+
+.panel .panel-body .panel-body--content .panel-body--list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.panel .panel-body .panel-body--content .panel-body--list-item span {
+  font-weight: 500;
+}
+
+.panel .panel-body .panel-body--content .item--description, .panel .panel-body .panel-body--content .item--properties {
+  padding: 30px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.panel .panel-body .panel-body--content .item--description .item--creator {
+  -webkit-box-align: center;
+  align-items: center;
+  color: rgb(138, 147, 155);
+  display: flex;
+}
+
+.panel .panel-body .panel-body--content .item--description .item--description-text {
+  color: rgb(53, 56, 64);
+}
+
+.panel .panel-body .panel-body--content .item--properties {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px
+}
+
+.item-wrapper .item-main .item--header, .item-wrapper .item-main .item--counts, .item-wrapper .item-main .item--frame {
+  margin: 20px 20px 15px;
+  display: flex;
+  flex-flow: column wrap;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
+
+.item-wrapper .item-main .item--counts {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  color: rgb(112, 122, 131);
 }
 
 body:not(.is-touch) .tiles article:hover>.image {
@@ -3062,6 +3279,12 @@ body.is-touch .tiles article .content {
 
 #header nav ul li a[href="#menu"]:hover:after {
   opacity: 0;
+}
+
+#header span.logged-user {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
 }
 
 @media screen and (max-width: 736px) {

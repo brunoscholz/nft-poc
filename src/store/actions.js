@@ -1,46 +1,21 @@
+import moment from 'moment'
 import Web3 from 'web3/dist/web3.min.js'
 import NFT from '../truffle/abis/NFT.json'
 
 import { NFTStorage } from 'nft.storage'
 
-// const { create } = require("ipfs-http-client");
-
-// const client = create({
-//   host: "ipfs.infura.io",
-//   port: 5001,
-//   protocol: "https",
-//   path: "api/v0",
-//   // auth: projectId + ':' + projectSecret
-// });
-
 import axios from 'axios'
+import { ETHER_ADDRESS } from '../helpers'
 
 export const loadWeb3 = dispatch => {
   const web3 = new Web3(Web3.givenProvider || 'ws://localhost:7545')
   dispatch({ type: 'WEB3_LOADED', payload: web3 })
   return web3
-
-  // try {
-  //   //THIS ALLOWS YOU TALK TO BLOCKCHAIN
-  //   const web3Modal = new Web3Modal({
-  //     network: 'ganache', // optional
-  //     cacheProvider: true, // optional
-  //     providerOptions: {} // required
-  //   })
-  //   const provider = await web3Modal.connect()
-  //   const web3 = new Web3(provider)
-  //   const netId = await web3.eth.net.getId()
-  //   //THIS WILL LOAD YOUR CONTRACT FROM BLOCKCHAIN
-  //   const contract = new web3.eth.Contract(Contract.abi, Contract.networks[netId].address)
-  // } catch(e) {
-  //   console.log('error:', e)
-  // }
 }
 
 export const loadAccount = async (web3, dispatch) => {
   const accounts = await web3.eth.getAccounts()
   dispatch({ type: 'WEB3_ACCOUNT_LOADED', payload: accounts[0] })
-  console.log(accounts)
   return accounts[0]
 }
 
@@ -73,7 +48,7 @@ export const uploadFileToIPFS = async (file, metadata) => {
     // })
     metadata.image = file
     const Token = await nftstorage.store(metadata)
-    console.log(Token.ipnft)
+    // console.log(Token.ipnft)
 
     return Token
   } catch (e) {
@@ -82,18 +57,35 @@ export const uploadFileToIPFS = async (file, metadata) => {
   }
 }
 
-export const mint = async (contract, account, Token, dispatch, uri, price='100000000000000000') => {
+export const mint = async (contract, account, Token, dispatch, price='100000000000000000') => {
   const nft = await contract.methods.mint(Token.ipnft, price).send({ from: account })
   return nft
 }
 
 
-export const loadAssets = async (contract, dispatch) => {
+export const loadAssets = async (web3, contract, dispatch) => {
   const orderStream = await contract.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest' })
-  const allOrders = orderStream.map(event => event.returnValues)
+  const allTransfers = []
+  orderStream.map(async (event) => {
+    const block = await web3.eth.getBlock(event.blockHash)
+    const owner = await contract.methods.ownerOf(event.returnValues.tokenId).call();
 
-  console.log(allOrders)
-  return allOrders
+    let data = {
+      from: event.returnValues.from,
+      to: event.returnValues.to,
+      tokenId: event.returnValues.tokenId,
+      isMint: event.returnValues.from === ETHER_ADDRESS,
+      isTransfer: event.returnValues.to !== contract.options.address,
+      formatedTimestamp: moment.unix(block.timestamp).format('hh:mm:ss a M/D'),
+      owner: owner
+    }
+
+    allTransfers.push(data)
+    return data
+  })
+
+  dispatch({ type: 'TRANSFERS_LOADED', payload: allTransfers })
+  return allTransfers
 }
 
 export const loadAllTokens = async (contract, resolveLink, dispatch) => {
@@ -105,16 +97,24 @@ export const loadAllTokens = async (contract, resolveLink, dispatch) => {
     let response = await axios.get(`https://nftstorage.link/ipfs/${uri}/metadata.json`)
     let data = {
       ...response.data,
-      image: resolveLink(response.data.image)
+      image: resolveLink(response.data.image),
+      id: i
     }
     tokens.push(data)
   }
 
-  console.log(tokens)
   dispatch({ type: 'ALL_NFTS_LOADED', payload: tokens })
   return tokens
 }
 
-export const subscribeToEvents = async () => {
+export const subscribeToEvents = async (contract, dispatch) => {
+  contract.events.Transfer({}, (error, event) => {
+    console.log(event.returnValues)
+    // dispatch({ type: 'ORDER_MADE', payload: event.returnValues })
+  })
 
+  contract.events.Purchase({}, (error, event) => {
+    console.log(event.returnValues)
+    // dispatch({ type: 'ORDER_MADE', payload: event.returnValues })
+  })
 }

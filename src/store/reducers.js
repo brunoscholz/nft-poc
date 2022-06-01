@@ -39,6 +39,17 @@ export const nftReducer = (state, action) => {
           contract: action.payload
         }
       }
+    case 'TRANSFERS_LOADED':
+      return {
+        ...state,
+        nft: {
+          ...state.nft,
+          transfers: {
+            loaded: true,
+            data: action.payload
+          }
+        }
+      }
     // case 'TOKEN_BALANCE_LOADED':
     //   return {
     //     ...state,

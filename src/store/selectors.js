@@ -20,3 +20,25 @@ export const tokensLoadedSelector = createSelector(tokensLoaded, loaded => loade
 
 const tokens = state => get(state, 'marketplace.data')
 export const tokensSelector = createSelector(tokens, t => t)
+
+export const getTokenById = (data, id) => {
+  return data && data.filter(x => x.id === id).pop()
+}
+
+const transfersLoaded = state => get(state, 'nft.transfers.loaded')
+export const transfersLoadedSelector = createSelector(transfersLoaded, loaded => loaded)
+
+const transfers = state => get(state, 'nft.transfers.data')
+export const transfersSelector = createSelector(transfers, t => t)
+
+// const filledOrders = state => get(state, 'exchange.filledOrders.data', [])
+// export const filledOrdersSelector = createSelector(filledOrders, orders => {
+//   // sort orders by date ascending for price comparison
+//   orders = orders.sort((a, b) => a.timestamp - b.timestamp)
+
+//   orders = decorateFilledOrders(orders)
+
+//   // sort the orders by date descending for display
+//   orders = orders.sort((a, b) => b.timestamp - a.timestamp)
+//   return orders
+// })

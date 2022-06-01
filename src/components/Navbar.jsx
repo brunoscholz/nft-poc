@@ -1,39 +1,32 @@
-// import { useAppState } from '../contexts/AppState'
+import { Link } from 'react-router-dom'
+import { useAppState } from '../contexts/AppState'
+import { accountSelector } from '../store/selectors'
 
 const Navbar = () => {
-  // const [ state ] = useAppState()
+  const [ state ] = useAppState()
+  const account = accountSelector(state)
 
   return (
     <>
       <header id="header">
+        <span className="logged-user">address: {account}</span>
         <div className="inner">
-            <a href="index.html" className="logo">
-              <span className="symbol"><img src="../images/logo.svg" alt="" /></span><span className="title">Phantom</span>
-            </a>
+            <Link to="/home" className="logo">
+              <span className="symbol"><img src="../images/logo.svg" alt="" /></span><span className="title">NFT Marketplace</span>
+            </Link>
 
             <nav>
               <ul>
                 <li><a href="#menu">Menu</a></li>
               </ul>
             </nav>
-            {/* <a
-              className='nav-link small'
-              href={`https://etherscan.io/address/${state.account}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {state.account}
-            </a> */}
         </div>
       </header>
       <nav id="menu">
         <h2>Menu</h2>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="generic.html">Ipsum veroeros</a></li>
-          <li><a href="generic.html">Tempus etiam</a></li>
-          <li><a href="generic.html">Consequat dolor</a></li>
-          <li><a href="elements.html">Elements</a></li>
+          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/create">Mint</Link></li>
         </ul>
       </nav>
     </>

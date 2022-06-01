@@ -1,8 +1,8 @@
-# NFT REACT BOILERPLATE
+# NFT REACT MARKETPLACE
 
 # INTRODUCTION
 
-# GETTING STARTED - -
+# GETTING STARTED
 
 ```
 This project requires that you use yarn instead of npm commands

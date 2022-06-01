@@ -2,10 +2,10 @@ import { useAppState } from '../contexts/AppState'
 import { useParams } from 'react-router-dom'
 import { accountSelector, contractSelector, tokensSelector, transfersSelector } from '../store/selectors'
 import Spinner from './Spinner'
-import { ether, getEllipsisTxt } from '../helpers'
+import { getEllipsisTxt } from '../helpers'
 
 const Detail = () => {
-  const [ state, dispatch ] = useAppState()
+  const [ state ] = useAppState()
   let { id } = useParams()
   // const [ token, setToken ] = useState()
 

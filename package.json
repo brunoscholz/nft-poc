@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node --optimize_for_size --max_old_space_size=7168 node_modules/.bin/react-scripts start",
+    "start": "export PORT=3000 node --optimize_for_size --max_old_space_size=7168 node_modules/.bin/react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

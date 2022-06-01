@@ -12,7 +12,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -25,7 +26,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [
@@ -50,7 +52,7 @@
   "sourceMap": "65:352:14:-:0;;;112:10;89:33;;;;;;;;;;;;;;;;;;;;65:352;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "65:352:14:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;126:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;89:33;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;312:103;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;126:36;;;;:::o;89:33::-;;;;;;;;;;;;:::o;312:103::-;224:5;;;;;;;;;;210:19;;:10;:19;;;195:101;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;401:9:::1;374:24;:36;;;;312:103:::0;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.6.0 <0.8.0;\n\ncontract Migrations {\n  address public owner = msg.sender;\n  uint public last_completed_migration;\n\n  modifier restricted() {\n    require(\n      msg.sender == owner,\n      \"This function is restricted to the contract's owner\"\n    );\n    _;\n  }\n\n  function setCompleted(uint completed) public restricted {\n    last_completed_migration = completed;\n  }\n}",
-  "sourcePath": "/home/bruno/src/medic-nft-poc/src/truffle/contracts/Migrations.sol",
+  "sourcePath": "/app/src/truffle/contracts/Migrations.sol",
   "ast": {
     "absolutePath": "project:/src/truffle/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -891,10 +893,17 @@
       "links": {},
       "address": "0x5193Cd9fa92c70572356E5492c8b6be14891c5bA",
       "transactionHash": "0x84c353a3de3b06d23fdf06f47ca0ca200e1cb63bb30d4b76a3bab0aedd1747a8"
+    },
+    "1654118649185": {
+      "events": {},
+      "links": {},
+      "address": "0x50aF0922d65D04D87d810048Dc640E2474eBfbd9",
+      "transactionHash": "0xa2f6e97d18ad6b073a46bea271339044cab5083fccb4e6dde0b774f3988610cc"
     }
   },
-  "schemaVersion": "3.4.7",
-  "updatedAt": "2022-06-01T21:54:46.271Z",
+  "schemaVersion": "3.4.2",
+  "updatedAt": "2022-06-01T21:57:26.423Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},

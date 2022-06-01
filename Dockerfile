@@ -2,10 +2,10 @@ FROM node:16
 
 WORKDIR /app
 
-RUN npm install -g yarn
+# RUN npm install -g yarn
 # Install Truffle
 # RUN npm install -g truffle
-RUN npm config set bin-links false
+# RUN npm config set bin-links false
 
 
 # Move Contract Files
@@ -24,4 +24,4 @@ COPY truffle-config.js ./
 
 # Clean Install NPM Dependencies
 RUN yarn install
-EXPOSE 3000
+EXPOSE 4001

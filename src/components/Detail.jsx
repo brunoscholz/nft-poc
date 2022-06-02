@@ -23,7 +23,6 @@ const Detail = () => {
     console.log(purchase)
   }
 
-  // console.log(tokenMeta)
   return (
     <div id="main">
       {

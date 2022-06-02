@@ -64,7 +64,6 @@ const Mint = () => {
     setAttributes(oldArray => [...attrs])
   }
 
-  console.log(state)
   return (
     <div id="main">
       <div className="inner">

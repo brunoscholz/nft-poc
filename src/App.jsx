@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { loadAccount, loadAllTokens, loadAssets, loadContract, loadWeb3 } from './store/actions'
+import { loadAccount, loadAllTokens, loadAssets, loadContract, loadWeb3, subscribeToEvents } from './store/actions'
 import { useAppState, useIPFS } from './contexts/AppState'
 
 import Navbar from './components/Navbar'
@@ -26,11 +26,7 @@ const loadBlockchainData = async dispatch => {
 
   await loadAssets(web3, nft, dispatch)
   await loadAllTokens(nft, resolveLink, dispatch)
-
-  // GET THE AMOUNT OF NFTs MINTED
-  // const totalSupply = await nft.methods.totalSupply().call()
-  // console.log(totalSupply, "nft's minted")
-  // console.log(nft)
+  await subscribeToEvents(web3, nft, dispatch)
 }
 
 export default function App() {

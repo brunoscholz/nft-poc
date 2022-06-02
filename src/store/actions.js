@@ -68,19 +68,7 @@ export const loadAssets = async (web3, contract, dispatch) => {
   const orderStream = await contract.getPastEvents('Transfer', { fromBlock: 0, toBlock: 'latest' })
   const allTransfers = []
   orderStream.map(async (event) => {
-    const block = await web3.eth.getBlock(event.blockHash)
-    const owner = await contract.methods.ownerOf(event.returnValues.tokenId).call();
-
-    let data = {
-      from: event.returnValues.from,
-      to: event.returnValues.to,
-      tokenId: event.returnValues.tokenId,
-      isMint: event.returnValues.from === ETHER_ADDRESS,
-      isTransfer: event.returnValues.to !== contract.options.address,
-      formatedTimestamp: moment.unix(block.timestamp).format('hh:mm:ss a M/D'),
-      owner: owner
-    }
-
+    let data = await decorateTransfer(web3, contract, event)
     allTransfers.push(data)
     return data
   })
@@ -108,14 +96,37 @@ export const loadAllTokens = async (contract, resolveLink, dispatch) => {
   return tokens
 }
 
-export const subscribeToEvents = async (contract, dispatch) => {
+export const subscribeToEvents = async (web3, contract, dispatch) => {
   contract.events.Transfer({}, (error, event) => {
     console.log(event.returnValues)
-    // dispatch({ type: 'ORDER_MADE', payload: event.returnValues })
+    // newly minted nft
+    if (event.returnValues.from === ETHER_ADDRESS) {
+      let data = decorateTransfer(web3, contract, event)
+      dispatch({ type: 'TRANSFER_MADE', payload: data })
+    }
+
+
   })
 
   contract.events.Purchase({}, (error, event) => {
     console.log(event.returnValues)
     // dispatch({ type: 'ORDER_MADE', payload: event.returnValues })
   })
+}
+
+const decorateTransfer = async (web3, contract, event) => {
+  const block = await web3.eth.getBlock(event.blockHash)
+  const owner = await contract.methods.ownerOf(event.returnValues.tokenId).call();
+
+  let data = {
+    from: event.returnValues.from,
+    to: event.returnValues.to,
+    tokenId: event.returnValues.tokenId,
+    isMint: event.returnValues.from === ETHER_ADDRESS,
+    isTransfer: event.returnValues.to !== contract.options.address,
+    formatedTimestamp: moment.unix(block.timestamp).format('hh:mm:ss a M/D'),
+    owner: owner
+  }
+
+  return data
 }

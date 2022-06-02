@@ -50,6 +50,18 @@ export const nftReducer = (state, action) => {
           }
         }
       }
+    case 'TRANSFER_MADE':
+      return {
+        ...state,
+        nft: {
+          ...state.nft,
+          transfers: {
+            ...state.nft.transfers,
+            loaded: true,
+            data: [...state.nft.transfers.data, action.payload]
+          }
+        }
+      }
     // case 'TOKEN_BALANCE_LOADED':
     //   return {
     //     ...state,

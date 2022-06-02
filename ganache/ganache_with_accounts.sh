@@ -3,5 +3,6 @@
 # Sorry about it :P
 node /app/ganache-core.docker.cli.js --quiet \
 -p 8546 \
+--chainId 1338 \
 --account="0x50d95f633d5edf84940369b152f3adef2b3944d04c7764ac2e855d2853286692,100000000000000000000" \
 --account="0xa0b90c598d71cb84cc9b86fcdb13cdf0d7c64ea42ad54381fef92805e103fb41,100000000000000000000"

@@ -3285,6 +3285,7 @@ body.is-touch .tiles article .content {
   position: absolute;
   top: 1rem;
   left: 1rem;
+  font-size: 11px;
 }
 
 @media screen and (max-width: 736px) {

@@ -15,7 +15,6 @@ const Mint = () => {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    // console.log(name, description, attributes, fileUrl)
     try {
       const metadata = {
         image: file,
@@ -24,9 +23,7 @@ const Mint = () => {
         attributes: attributes
       }
       const Token = await uploadFileToIPFS(file, metadata)
-      const nft = await mint(contract, account, Token, dispatch)
-      console.log(nft)
-
+      await mint(contract, account, Token, dispatch)
     } catch (error) {
       console.log('Error uploading file: ', error)
     }
@@ -36,7 +33,6 @@ const Mint = () => {
     if (["trait_type", "value"].includes(e.target.className)) {
       let attrs = [...attributes]
       attrs[e.target.dataset.id][e.target.className] = e.target.value
-      console.log(attrs)
       setAttributes(oldArray => [...attrs])
     }
   }
@@ -53,10 +49,8 @@ const Mint = () => {
   const removeAttribute = (idx) => {
     let attrs = [...attributes]
     attrs = attrs.filter((item, i) => {
-      console.log(i, idx, item.trait)
       return i !== idx
     })
-    console.log(attrs)
     setAttributes(oldArray => [...attrs])
   }
 

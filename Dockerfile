@@ -27,6 +27,6 @@ RUN chmod 0777 /tmp/entrypoint.sh
 
 # Clean Install NPM Dependencies
 RUN yarn install
-EXPOSE 3000
+EXPOSE 3001
 # VOLUME /app
 ENTRYPOINT ["/tmp/entrypoint.sh"]

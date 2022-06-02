@@ -15,7 +15,7 @@ truffle test
 echo "Deploying contracts to the blockchain"
 truffle migrate
 
-echo "Start dev mode on port 4001"
+echo "Start dev mode on port 3001"
 yarn start
 
 exec "$@"

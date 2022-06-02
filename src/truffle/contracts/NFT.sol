@@ -35,7 +35,9 @@ contract NFT is ERC721, Ownable {
     uint256 _tokenId = totalSupply() + 1;
     price[_tokenId] = _price;
 
-    _mint(address(this), _tokenId);
+    // _mint(address(this), _tokenId);
+    // send the new nft to the minter's address
+    _mint(msg.sender, _tokenId);
     _setTokenURI(_tokenId, _tokenURI);
 
     return true;

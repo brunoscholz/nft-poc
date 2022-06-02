@@ -57,8 +57,9 @@ export const uploadFileToIPFS = async (file, metadata) => {
   }
 }
 
-export const mint = async (contract, account, Token, dispatch, price='100000000000000000') => {
-  const nft = await contract.methods.mint(Token.ipnft, price).send({ from: account })
+export const mint = async (contract, account, Token, dispatch, price='100000000000') => {
+  const nft = await contract.methods.mint(Token.ipnft, price).send({ from: account, value: '6500000000000' })
+  dispatch({ type: 'NFT_CREATED', payload: nft })
   return nft
 }
 

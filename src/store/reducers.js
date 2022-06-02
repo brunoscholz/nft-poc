@@ -74,6 +74,15 @@ export const marketReducer = (state, action) => {
           data: action.payload
         }
       }
+    case 'NFT_CREATED':
+      return {
+        ...state,
+        marketplace: {
+          ...state.marketplace,
+          loaded: true,
+          data: [...state.marketplace.data, action.payload]
+        }
+      }
     default:
       return state
   }

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Web3 from 'web3'
 import { useAppState } from '../contexts/AppState'
 import { mint, uploadFileToIPFS } from '../store/actions'
 import { accountSelector, contractSelector } from '../store/selectors'
@@ -9,7 +10,9 @@ const Mint = () => {
   const [ name, setName ] = useState('')
   const [ description, setDescription ] = useState('')
   const [ attributes, setAttributes ] = useState([])
+  const [ price, setPrice ] = useState('100000000000')
 
+  // unaware of the dangers, a kitten poses for our crew
   const contract = contractSelector(state)
   const account = accountSelector(state)
 
@@ -23,10 +26,17 @@ const Mint = () => {
         attributes: attributes
       }
       const Token = await uploadFileToIPFS(file, metadata)
-      await mint(contract, account, Token, dispatch)
+      const nft = await mint(contract, account, Token, dispatch, price)
+      // if ()
+      // todo: redirect if correct
     } catch (error) {
       console.log('Error uploading file: ', error)
     }
+  }
+
+  const handlePrice = (e) => {
+    let value = e.target.value
+    setPrice(Web3.utils.toWei(value))
   }
 
   const handleChange = (e) => {
@@ -54,6 +64,7 @@ const Mint = () => {
     setAttributes(oldArray => [...attrs])
   }
 
+  console.log(state)
   return (
     <div id="main">
       <div className="inner">
@@ -69,6 +80,10 @@ const Mint = () => {
               </div>
               <div className="field half">
                 <input type='file' name='image' onChange={onUploadImage} />
+              </div>
+              <div className="field half input-group">
+                <input type="text" name="price" id="price" placeholder="Initial Price" onChange={handlePrice} />
+                <span className="input-group-text" id="basic-addon2">ETH</span>
               </div>
               <div className="field">
                 <h5>Attributes</h5>

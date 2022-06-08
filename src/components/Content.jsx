@@ -5,6 +5,7 @@ import { contractSelector, tokensLoadedSelector, tokensSelector } from '../store
 import { loadAllTokens } from '../store/actions'
 
 import { Link } from 'react-router-dom'
+import { Spinner } from 'react-bootstrap'
 
 // import { loadAllOrders, subscribeToEvents } from '../store'
 
@@ -52,6 +53,7 @@ const Content = () => {
           <header>
             <h1>No NFTs Minted yet!</h1>
             <p>Create one <Link to={'/create'}>here</Link></p>
+            <Spinner />
           </header>
         )}
       </div>

@@ -2,7 +2,7 @@ import { useAppState } from '../contexts/AppState'
 import { useParams } from 'react-router-dom'
 import { accountSelector, contractSelector, tokensSelector, transfersSelector } from '../store/selectors'
 import Spinner from './Spinner'
-import { getEllipsisTxt } from '../helpers'
+import { ETHER_ADDRESS, getEllipsisTxt } from '../helpers'
 
 const Detail = () => {
   const [ state ] = useAppState()
@@ -94,7 +94,7 @@ const Detail = () => {
                         <div className="panel-body--content">
                           <div className="panel-body--list">
                             <div className="panel-body--list-item">
-                              <span>Contract:</span><a href='/#'>{getEllipsisTxt(contract.options.address, 4)}</a>
+                              <span>Contract:</span><a href={`https://goerli.etherscan.io/address/${contract.options.address}`}>{getEllipsisTxt(contract.options.address, 4)}</a>
                             </div>
                           </div>
                         </div>
@@ -109,7 +109,7 @@ const Detail = () => {
                 </section>
                 <section className='item--counts'>
                   <div className="owner">
-                    <span>Owned by: {tokenMeta[0].owner === contract.options.address ? <a href='/#'>Contract </a> : ''}({getEllipsisTxt(tokenMeta[0].owner, 4)})</span>
+                    <span>Owned by: <a href={`https://goerli.etherscan.io/address/${tokenMeta[0].owner}`}>{tokenMeta[0].owner === contract.options.address ? 'Contract' : ''}({getEllipsisTxt(tokenMeta[0].owner, 4)})</a></span>
                   </div>
                 </section>
                 <section className='item--frame'>
@@ -149,8 +149,8 @@ const Detail = () => {
                                   <tr key={idx}>
                                     <td>{ item.isMint ? 'Minted' : 'Transfer' }</td>
                                     <td>{ item.formatedTimestamp }</td>
-                                    <td>{ getEllipsisTxt(item.from, 4) }</td>
-                                    <td>{ getEllipsisTxt(item.to, 4) }</td>
+                                    <td>{ item.from !== ETHER_ADDRESS ? <a href={`https://goerli.etherscan.io/address/${item.from}`}>{ getEllipsisTxt(item.from, 4) }</a> : getEllipsisTxt(item.from, 4)}</td>
+                                    <td><a href={`https://goerli.etherscan.io/address/${item.to}`}>{ getEllipsisTxt(item.to, 4) }</a></td>
                                   </tr>
                                 )
                               })}

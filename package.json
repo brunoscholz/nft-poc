@@ -1,9 +1,9 @@
 {
-  "name": "medic-nft",
+  "name": "nft-marketplace",
   "version": "1.1.0",
   "private": true,
   "scripts": {
-    "start": "node --optimize_for_size --max_old_space_size=2560 dist/main.js",
+    "start": "node --optimize_for_size --max_old_space_size=2560 node_modules/.bin/react-scripts start",
     "build": "node --max_old_space_size=2560 node_modules/.bin/react-scripts build",
     "local": "PORT=3001 react-scripts start",
     "test": "react-scripts test",
@@ -61,6 +61,8 @@
     ]
   },
   "engines": {
-    "node": "16.x"
+    "node": "16.13.0",
+    "npm": "8.10.0",
+    "yarn": "1.22.19"
   }
 }

@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "private": true,
   "scripts": {
-    "start": "node --optimize_for_size --max_old_space_size=460 node_modules/.bin/react-scripts start",
+    "start": "node --optimize_for_size --max_old_space_size=2048 node_modules/.bin/react-scripts start",
     "build": "node --max_old_space_size=460 node_modules/.bin/react-scripts build",
     "local": "PORT=3001 react-scripts start",
     "test": "react-scripts test",

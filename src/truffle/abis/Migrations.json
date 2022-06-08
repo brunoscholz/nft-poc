@@ -911,10 +911,16 @@
       "links": {},
       "address": "0x471780F1089B5309a19beE3cc557db3EB6B7CA5b",
       "transactionHash": "0xb5090c23d97f49948de3fba3b76eff45503094b5f9feb67dd9ae00124a61d37b"
+    },
+    "1654376081821": {
+      "events": {},
+      "links": {},
+      "address": "0x531B7Dd16a3AB8e98B531d869c91d779d3Fe3b49",
+      "transactionHash": "0x6bc924e855f9a4d888b83b02dea165e79af7830252dfb902b5fc67a9c4ebc811"
     }
   },
   "schemaVersion": "3.4.2",
-  "updatedAt": "2022-06-02T18:01:12.539Z",
+  "updatedAt": "2022-06-04T20:55:03.343Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

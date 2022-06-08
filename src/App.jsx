@@ -20,7 +20,7 @@ const loadBlockchainData = async dispatch => {
 
   const nft = await loadContract(web3, networkId, dispatch)
   if (!nft) {
-    window.alert('NFT smart contract not detected in the current network.')
+    window.alert('NFT smart contract not detected in the current network. Change your metamask network to Goerli Test; the contract is deployed there!')
     return
   }
 

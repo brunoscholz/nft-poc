@@ -9,7 +9,7 @@ Check it out the [Live Demo](https://nftsmarket.herokuapp.com/)
 
 Needs [Metamask](https://metamask.io/download/) wallet with an account connected to the website and it needs to run on Goerli Test Network.
 
-<img src="https://github.com/brunoscholz/ntf-poc/blob/master/public/images/metamask1.png" width="300px"/>
+<img src="https://github.com/brunoscholz/nft-poc/blob/master/public/images/metamask1.png" width="300px"/>
 
 ## Getting Started
 
